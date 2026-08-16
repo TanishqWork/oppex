@@ -1,9 +1,10 @@
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 
 import ctaBg from "../assets/cta-bg.png";
 import ctaBgDark from "../assets/cta-bg-dark.png";
 import { submitWaitlist, type WaitlistSource } from "../lib/waitlist";
-import { CheckCircle } from "./icons";
+import WaitlistSuccess from "./WaitlistSuccess";
 
 /* Frame 13 (Pricing) draws this same block on the charcoal shell with its
    own skyline plate, so the tone is a prop rather than a forked component.
@@ -16,9 +17,15 @@ type Status =
   | { kind: "success"; duplicate: boolean }
   | { kind: "error"; message: string };
 
-export default function WaitlistCTA({ tone = "brand", source = "landing" }: Props) {
+export default function WaitlistCTA({
+  tone = "brand",
+  source = "landing",
+}: Props) {
   const dark = tone === "dark";
   const [email, setEmail] = useState("");
+  /* Kept separately so the success card can show the address after the
+     input has been cleared. */
+  const [submittedEmail, setSubmittedEmail] = useState("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   const busy = status.kind === "submitting";
@@ -40,6 +47,7 @@ export default function WaitlistCTA({ tone = "brand", source = "landing" }: Prop
     const result = await submitWaitlist(email, source);
 
     if (result.ok) {
+      setSubmittedEmail(email.trim().toLowerCase());
       setStatus({ kind: "success", duplicate: Boolean(result.duplicate) });
       setEmail("");
       return;
@@ -90,61 +98,90 @@ export default function WaitlistCTA({ tone = "brand", source = "landing" }: Prop
           disappear at launch day.
         </p>
 
-        <form className="mt-10 flex flex-wrap items-center gap-4" onSubmit={handleSubmit} noValidate>
-          <label htmlFor={`waitlist-email-${source}`} className="sr-only">
-            Work email
-          </label>
-          <input
-            id={`waitlist-email-${source}`}
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            disabled={busy || done}
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (status.kind === "error") setStatus({ kind: "idle" });
-            }}
-            placeholder="Work email"
-            aria-invalid={status.kind === "error"}
-            className="h-11 w-[262px] rounded-xl border border-white/25 bg-white/5 px-4 font-body text-[16px] font-light text-white placeholder:text-white/50 focus:border-white/60 focus:outline-none disabled:opacity-60"
-          />
-
-          {/* Honeypot — off-screen, not focusable, hidden from screen readers */}
-          <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
-            <label htmlFor={`company-${source}`}>Company (leave blank)</label>
-            <input
-              id={`company-${source}`}
-              name="company"
-              type="text"
-              tabIndex={-1}
-              autoComplete="off"
+        <AnimatePresence mode="wait" initial={false}>
+          {done ? (
+            <WaitlistSuccess
+              key="success"
+              email={submittedEmail}
+              duplicate={status.kind === "success" && status.duplicate}
+              dark={dark}
             />
-          </div>
+          ) : (
+            <motion.form
+              key="form"
+              exit={{ opacity: 0, y: -10, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: "easeIn" }}
+              className="mt-10 flex flex-wrap items-center gap-4"
+              onSubmit={handleSubmit}
+              noValidate
+            >
+              <label htmlFor={`waitlist-email-${source}`} className="sr-only">
+                Work email
+              </label>
+              <input
+                id={`waitlist-email-${source}`}
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                disabled={busy || done}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (status.kind === "error") setStatus({ kind: "idle" });
+                }}
+                placeholder="Work email"
+                aria-invalid={status.kind === "error"}
+                className="h-11 w-[262px] rounded-xl border border-white/25 bg-white/5 px-4 font-body text-[16px] font-light text-white placeholder:text-white/50 focus:border-white/60 focus:outline-none disabled:opacity-60"
+              />
 
-          <button
-            type="submit"
-            disabled={busy || done}
-            className="h-11 rounded-xl bg-blush px-6 font-display text-[16px] text-brand transition-transform hover:-translate-y-px disabled:translate-y-0 disabled:opacity-70"
-          >
-            {busy ? "Adding you…" : done ? "You're on the list" : "Claim early Access"}
-          </button>
-        </form>
+              {/* Honeypot — off-screen, not focusable, hidden from screen readers */}
+              <div
+                aria-hidden="true"
+                className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+              >
+                <label htmlFor={`company-${source}`}>
+                  Company (leave blank)
+                </label>
+                <input
+                  id={`company-${source}`}
+                  name="company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
 
-        {/* One live region so a screen reader announces whichever state wins */}
+              <button
+                type="submit"
+                disabled={busy}
+                className="inline-flex h-11 items-center gap-2.5 rounded-xl bg-blush px-6 font-display text-[16px] text-brand transition-transform hover:-translate-y-px disabled:translate-y-0 disabled:opacity-70"
+              >
+                {busy && (
+                  <span
+                    aria-hidden="true"
+                    className="size-4 animate-spin rounded-full border-2 border-brand/30 border-t-brand"
+                  />
+                )}
+                {busy ? "Adding you…" : "Claim early Access"}
+              </button>
+            </motion.form>
+          )}
+        </AnimatePresence>
+
+        {/* Live region: the success card carries its own copy, so this only
+            needs to announce it and surface errors. */}
         <p
           role="status"
           aria-live="polite"
-          className="mt-6 font-body text-[13px] font-light text-white"
+          className={`mt-6 font-body text-[13px] font-light text-white ${done ? "sr-only" : ""}`}
         >
           {status.kind === "success" ? (
-            <span className="inline-flex items-center gap-2 text-blush">
-              <CheckCircle className="size-4 shrink-0" />
-              {status.duplicate
-                ? "You're already on the list — we'll be in touch at launch."
-                : "You're on the list. We'll email you when early access opens."}
-            </span>
+            status.duplicate ? (
+              "You're already on the list. We'll be in touch at launch."
+            ) : (
+              "You're on the list. We'll email you when early access opens."
+            )
           ) : status.kind === "error" ? (
             <span className="text-[#ffd5d5]">{status.message}</span>
           ) : (
