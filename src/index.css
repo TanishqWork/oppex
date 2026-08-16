@@ -1,96 +1,95 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* ---------------------------------------------------------------------
+   DISPLAY FONT — "Late Serif Variable" (Character Type, via Adobe Fonts)
+   is the real font from the Figma file. It is commercial and is NOT on
+   Google Fonts, so it cannot be imported here without a licence.
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+   To switch the site to the real font, uncomment ONE of the following
+   and nothing else — `--font-display` below already lists both names
+   ahead of the Literata fallback, so no other change is needed.
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+   1) Adobe Fonts web project (easiest — included with Creative Cloud):
+      fonts.adobe.com -> Late Serif Variable -> "Add to Web Project",
+      then paste the kit URL it gives you:
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+   @import url("https://use.typekit.net/YOUR_KIT_ID.css");
+
+   2) Self-hosted, if you licence the files from charactertype.com:
+      drop the .woff2 in src/assets/fonts/ and use @font-face instead.
+   --------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,500&family=Roboto:wght@300;400;500;600&family=Schibsted+Grotesk:wght@600&display=swap");
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Design tokens — extracted from Figma "Oppurtunity ex" / Frame 18
+   (file weHkpF53UAsdW9aEWpbm8e, node 158:450)
+   --------------------------------------------------------------- */
+@theme {
+  /* Brand */
+  --color-brand: #2052eb;
+  --color-brand-alt: #2b5aec;
+  --color-brand-deep: #2050e3;
+  --color-brand-link: #1447e6;
+
+  /* Pink — used for text on blue, and as the "For Companies" plate */
+  --color-blush: #fadbe5;
+
+  /* Neutrals */
+  --color-page: #f7f7f7;
+  --color-ink: #0f0f0f;
+  --color-ink-soft: #262320;
+  --color-ink-mute: #1e1e1e;
+  --color-charcoal: #272728;
+
+  /* Tile / surface neutrals from the cloud collage + mockups */
+  --color-tile: #ebe9df;
+  --color-tile-soft: #f5f4f0;
+  --color-chrome: #f3f2ef;
+  --color-shell: #f8f8f8;
+  /* Pricing (dark shell) neutrals */
+  --color-paper: #e7e7e2;
+  --color-hairline: #4c4a47;
+
+  /* Accents */
+  --color-live: #03c685;
+  --color-verified: #009966;
+  --color-grape: #3f0097;
+
+  /* Type — the first two names are the real design font: "late-serif-
+     variable" is how an Adobe Fonts kit exposes it, "Late Serif Variable"
+     is the local/desktop name. Whichever is present wins automatically;
+     Literata is the free stand-in until one of them loads. */
+  --font-display: "late-serif-variable", "Late Serif Variable", "Literata", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-body: "Roboto", system-ui, sans-serif;
+  --font-grotesk: "Schibsted Grotesk", "Inter", system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  background: var(--color-page);
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+/* Display serif. Figma: weight 400, tracking 0. Section headings run at
+   110% (72.6/66); the hero alone is tighter at 102% and sets its own. */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0;
+  /* Literata has an optical-size axis (7-72). Left on `auto` the browser
+     picks opsz≈72 at display sizes, which is far more high-contrast than
+     Late Serif. Pinning it to a text-weight optical size is much closer.
+     Late Serif has no opsz axis, so this is inert once the real font
+     loads and can stay. */
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 20;
 }
