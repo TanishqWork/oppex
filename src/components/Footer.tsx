@@ -20,7 +20,7 @@ const COLUMNS: { heading: string; links: FooterLink[] }[] = [
       { label: "Join as partner", to: "/partners" },
       { label: "How verification works", to: "/partners" },
       { label: "Pricing", to: "/pricing" },
-      { label: "Post a requirement" },
+      { label: "Post a requirement", to: "/post-a-project" },
     ],
   },
   {

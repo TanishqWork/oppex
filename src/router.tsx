@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
 import Opportunities from "./pages/Opportunities";
 import Partners from "./pages/Partners";
+import PostProject from "./pages/PostProject";
 import Pricing from "./pages/Pricing";
 
 /*
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Landing /> },
       { path: "opportunities", element: <Opportunities /> },
       { path: "partners", element: <Partners /> },
+      { path: "post-a-project", element: <PostProject /> },
       { path: "pricing", element: <Pricing /> },
       { path: "*", element: <NotFound /> },
     ],

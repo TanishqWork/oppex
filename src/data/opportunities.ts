@@ -160,6 +160,18 @@ export const OPPORTUNITIES: Opportunity[] = [
   },
 ];
 
+/*
+ * The three listings previewed by the landing page's "Fresh Opportunities"
+ * strip (Figma node 109:13334). The design repeats one placeholder card three
+ * times; these reuse the first three marketplace listings and drop their
+ * timestamps to hours, because the headline promises the last 24 hours.
+ */
+export const FRESH_OPPORTUNITIES: Opportunity[] = [
+  { ...OPPORTUNITIES[0], postedAgo: "2 hours ago" },
+  { ...OPPORTUNITIES[1], postedAgo: "1 hour ago" },
+  { ...OPPORTUNITIES[2], postedAgo: "1 hour ago" },
+];
+
 export type ActivityItem = { title: string; meta: string; tone: string };
 
 export const HAPPENING_NOW: ActivityItem[] = [

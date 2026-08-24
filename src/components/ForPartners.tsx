@@ -35,7 +35,7 @@ export default function ForPartners() {
             />
             <p className="mt-5 rounded-lg bg-blush/90 p-3 text-[12px] leading-[1.45] font-medium text-grape">
               Compare: one qualified enterprise lead from an agency costs
-              ₹15,000–₹50,000. Here it's ₹999 — about 2% of the cost.
+              ₹15,000–₹50,000. Here it's ₹999 — and you saw the scope first.
             </p>
           </div>
 

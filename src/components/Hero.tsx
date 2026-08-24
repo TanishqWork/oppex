@@ -90,12 +90,12 @@ export default function Hero() {
             See live opportunities
             <ArrowRight className="size-[18px]" />
           </Link>
-          <a
-            href="#post"
+          <Link
+            to="/post-a-project"
             className="inline-flex h-10 items-center rounded-xl bg-blush px-6 font-display text-[16px] text-brand-alt transition-transform hover:-translate-y-px"
           >
             Post a project- Free
-          </a>
+          </Link>
         </div>
 
         <ul className="mt-16 flex flex-wrap items-center justify-center gap-x-12 gap-y-3">

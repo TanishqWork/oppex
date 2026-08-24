@@ -1,6 +1,7 @@
 import CloudGrid from "../components/CloudGrid";
 import ForCompanies from "../components/ForCompanies";
 import ForPartners from "../components/ForPartners";
+import FreshOpportunities from "../components/FreshOpportunities";
 import Hero from "../components/Hero";
 import HowItWorks from "../components/HowItWorks";
 import Stats from "../components/Stats";
@@ -12,7 +13,7 @@ export default function Landing() {
   return (
     <>
       <Hero />
-      <Stats />
+      <FreshOpportunities />
       <CloudGrid />
       <ForCompanies />
       <ForPartners />

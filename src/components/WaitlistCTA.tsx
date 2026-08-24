@@ -58,7 +58,9 @@ export default function WaitlistCTA({
       message:
         result.reason === "invalid-email"
           ? "That doesn't look like a valid email address."
-          : "We couldn't save that just now. Please try again in a moment.",
+          : result.reason === "not-configured"
+            ? "This form isn't connected to a collector yet, so nothing was saved. (Check the browser console.)"
+            : "We couldn't save that just now. Please try again in a moment.",
     });
   }
 
@@ -95,7 +97,7 @@ export default function WaitlistCTA({
         <p className="mt-11 max-w-[860px] font-body text-[20px] leading-[1.5] font-light text-white">
           Early partners get 1 free unlock (₹999 value) at launch. Early
           companies get priority placement at the top of the marketplace. Both
-          disappear at launch day.
+          disappear on launch day.
         </p>
 
         <AnimatePresence mode="wait" initial={false}>

@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 import mockCompanies from "../assets/mock-companies.png";
 import { ArrowRight, CheckSquare } from "./icons";
 
@@ -9,7 +11,7 @@ const POINTS: [string, string][] = [
   ],
   [
     "Only serious partners reach you.",
-    "Each one paid ₹999 just to get your contact — tire-kickers filtered out.",
+    "Each one paid ₹999 just to get your contact — tire-kickers filter themselves out.",
   ],
   [
     "Max 4 partners, ever.",
@@ -52,13 +54,13 @@ export default function ForCompanies() {
               ))}
             </ul>
 
-            <a
-              href="#get-started"
+            <Link
+              to="/post-a-project"
               className="mt-12 inline-flex items-center gap-3 rounded-xl bg-brand px-6 py-3 font-display text-[17.8px] text-white transition-transform hover:-translate-y-px"
             >
               Post your project free
               <ArrowRight className="size-[18px]" />
-            </a>
+            </Link>
           </div>
 
           {/* Browser mockup — bleeds off the right edge, as in the design */}

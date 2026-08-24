@@ -1,27 +1,40 @@
 import type { Opportunity } from "../../data/opportunities";
 import { ArrowRight, CheckCircle, ClockIcon, WalletIcon } from "../icons";
 
-/* Figma: card 332x465, white, r16, 24px padding, 12px internal gap. */
-export default function OpportunityCard({ item }: { item: Opportunity }) {
+/*
+ * Figma: card 332x465 on Explore (Frame 32), 437x412 in the landing
+ * "Fresh Opportunities" strip (node 109:13334) — same card, except the
+ * landing copy leads with the timestamp instead of the badges, hence
+ * `dateFirst`.
+ */
+type Props = { item: Opportunity; dateFirst?: boolean };
+
+export default function OpportunityCard({ item, dateFirst = false }: Props) {
+  const badges = (
+    <div className="flex flex-wrap items-center gap-2.5">
+      <span className="rounded bg-[#dbeafe] px-2.5 py-1 text-[12px] font-bold text-brand-link">
+        {item.cloud}
+      </span>
+      <span className="rounded bg-chrome px-2.5 py-1 text-[12px] text-[#6b6b6b]">
+        {item.industry}
+      </span>
+      {item.verified && (
+        <span className="inline-flex items-center gap-1 text-[12px] font-bold text-verified">
+          <CheckCircle className="size-3" />
+          Verified
+        </span>
+      )}
+    </div>
+  );
+
+  const posted = (
+    <p className="text-[12px] text-[#6b6b6b]">{item.postedAgo}</p>
+  );
+
   return (
     <article className="flex min-h-[465px] flex-col rounded-2xl border border-black/[0.08] bg-white p-6 transition-shadow duration-300 hover:shadow-[0_14px_36px_-14px_rgba(15,15,15,0.22)]">
-      {/* Taxonomy badges */}
-      <div className="flex flex-wrap items-center gap-2.5">
-        <span className="rounded bg-[#dbeafe] px-2.5 py-1 text-[12px] font-bold text-brand-link">
-          {item.cloud}
-        </span>
-        <span className="rounded bg-chrome px-2.5 py-1 text-[12px] text-[#6b6b6b]">
-          {item.industry}
-        </span>
-        {item.verified && (
-          <span className="inline-flex items-center gap-1 text-[12px] font-bold text-verified">
-            <CheckCircle className="size-3" />
-            Verified
-          </span>
-        )}
-      </div>
-
-      <p className="mt-2.5 text-[12px] text-[#6b6b6b]">{item.postedAgo}</p>
+      {dateFirst ? posted : badges}
+      <div className="mt-2.5">{dateFirst ? badges : posted}</div>
 
       <h3 className="display mt-3 text-[26px] leading-[1.15] text-brand">
         {item.title}

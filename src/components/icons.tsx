@@ -150,6 +150,31 @@ export function Chevron({
   );
 }
 
+export function ShieldCheck({ className = "" }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M12 3.2 5.5 5.9v5.2c0 4 2.7 7.6 6.5 9 3.8-1.4 6.5-5 6.5-9V5.9L12 3.2Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m9.2 11.8 2 2 3.6-3.9"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function ArrowRight({ className = "" }: IconProps) {
   return (
     <svg

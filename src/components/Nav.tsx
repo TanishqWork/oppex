@@ -57,14 +57,14 @@ export default function Nav() {
           <a href="#signin" className={`hidden sm:inline ${base} ${idle}`}>
             Sign in
           </a>
-          <a
-            href="/#get-started"
+          <Link
+            to="/post-a-project"
             className={`rounded-[10px] bg-blush px-5 py-2.5 font-display text-[16px] transition-transform hover:-translate-y-px ${
               dark ? "text-ink-soft" : "text-brand-alt"
             }`}
           >
-            Get started
-          </a>
+            Post a project · Free
+          </Link>
         </div>
       </nav>
     </header>
