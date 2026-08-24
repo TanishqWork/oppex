@@ -4,7 +4,6 @@ import ForPartners from "../components/ForPartners";
 import FreshOpportunities from "../components/FreshOpportunities";
 import Hero from "../components/Hero";
 import HowItWorks from "../components/HowItWorks";
-import Stats from "../components/Stats";
 import Verification from "../components/Verification";
 import WaitlistCTA from "../components/WaitlistCTA";
 
