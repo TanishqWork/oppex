@@ -25,12 +25,12 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <Landing /> },
-      { path: "opportunities", element: <Opportunities /> },
-      { path: "partners", element: <Partners /> },
-      { path: "post-a-project", element: <PostProject /> },
-      { path: "pricing", element: <Pricing /> },
-      { path: "*", element: <NotFound /> },
+      // { index: true, element: <Landing /> },
+      // { path: "opportunities", element: <Opportunities /> },
+      // { path: "partners", element: <Partners /> },
+      // { path: "post-a-project", element: <PostProject /> },
+      // { path: "pricing", element: <Pricing /> },
+      // { path: "*", element: <NotFound /> },
     ],
   },
 ]);
