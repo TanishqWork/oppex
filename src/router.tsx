@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 
-import RootLayout from "./layouts/RootLayout";
+// import RootLayout from "./layouts/RootLayout";
 // import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
 // import Opportunities from "./pages/Opportunities";
@@ -22,7 +22,7 @@ import NotFound from "./pages/NotFound";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    // element: <RootLayout />,
     errorElement: <NotFound />,
     children: [
       // { index: true, element: <Landing /> },
