@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router";
 
 import RootLayout from "./layouts/RootLayout";
 // import Landing from "./pages/Landing";
-// import NotFound from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 // import Opportunities from "./pages/Opportunities";
 // import Partners from "./pages/Partners";
 // import PostProject from "./pages/PostProject";
